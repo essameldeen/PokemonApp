@@ -32,12 +32,13 @@ class MainActivity : AppCompatActivity() {
             if (intent!!.action!!.toString() == Common.KEY_ENABLE) {
                 settingActionBar(true)
 
-                val position = intent.getIntExtra("position", -1)
+                val num = intent.getStringExtra("num")
                 var bundle = Bundle()
-                bundle.putInt("position", position)
+                bundle.putString("num", num)
                 val pokemonDetails = PokemonDetails.getInstance()
                 pokemonDetails.arguments = bundle
-                changeTitle(Common!!.pokemons!![position]!!.name)
+                var pokemon = Common.findPokemonByNum(num)
+                changeTitle(pokemon!!.name)
                 replaceFragment(pokemonDetails, PokemonDetails.tag)
 
             }

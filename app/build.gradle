@@ -48,4 +48,6 @@ dependencies {
 
     // chip view
     implementation 'com.robertlevonyan.view:MaterialChipView:1.2.4'
+    // search bar
+    implementation 'com.github.mancj:MaterialSearchbar:0.7.6'
 }

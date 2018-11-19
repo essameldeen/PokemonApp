@@ -38,7 +38,8 @@ class PokemonAdapter(var context: Context, var pokemons: List<PokamnChild>, var 
             image = itemView.findViewById(R.id.image) as ImageView
             name = itemView.findViewById(R.id.name) as TextView
             itemView.setOnClickListener {
-                onItemClick.onClickItem(itemView, adapterPosition)
+                var num = pokemons[adapterPosition].num
+                onItemClick.onClickItem(itemView,adapterPosition ,num)
             }
         }
 

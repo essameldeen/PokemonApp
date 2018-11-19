@@ -18,9 +18,7 @@ import com.task.toshiba.pekemonapp.Adapter.PokemonTypeAdapter
 import com.task.toshiba.pekemonapp.Interface.OnItemClick
 
 import com.task.toshiba.pekemonapp.R
-import com.task.toshiba.pekemonapp.R.id.*
 import kotlinx.android.synthetic.main.fragment_pokemon_details.*
-import kotlinx.android.synthetic.main.single_pokemon_item.*
 
 class PokemonDetails : Fragment(), OnItemClick {
 
@@ -53,12 +51,7 @@ class PokemonDetails : Fragment(), OnItemClick {
         initView(view)
 
         val num = arguments!!.getString("num")
-        if(num==null){
-            val position = arguments!!.getInt("position")
-            pokemon = Common!!.pokemons!![position]
-        }else{
-            pokemon = Common.findPokemonByNum(num)!!
-        }
+        pokemon = Common.findPokemonByNum(num)!!
 
         updateUi()
 
@@ -88,13 +81,13 @@ class PokemonDetails : Fragment(), OnItemClick {
 
     private fun updateUi() {
 
-            Glide.with(context!!).load(pokemon!!.img).into(image)
-            name.text = pokemon!!.name
-            height.text = "Height: " + pokemon!!.height
-            weight.text = "Weight: " + pokemon!!.weight
+        Glide.with(context!!).load(pokemon!!.img).into(image)
+        name.text = pokemon!!.name
+        height.text = "Height: " + pokemon!!.height
+        weight.text = "Weight: " + pokemon!!.weight
 
-            setUpAdapter()
-        }
+        setUpAdapter()
+    }
 
 
     private fun setUpAdapter() {
@@ -116,7 +109,7 @@ class PokemonDetails : Fragment(), OnItemClick {
 
     }
 
-    override fun onClickItem(view: View, position: Int) {
+    override fun onClickItem(view: View, position: Int, num: String?) {
         Toast.makeText(context!!, "Position " + position, Toast.LENGTH_LONG).show()
     }
 

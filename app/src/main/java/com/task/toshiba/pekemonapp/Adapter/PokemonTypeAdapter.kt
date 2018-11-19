@@ -1,8 +1,6 @@
 package com.task.toshiba.pekemonapp.Adapter
 
 import android.content.Context
-import android.graphics.Color
-import android.support.design.chip.Chip
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +8,6 @@ import android.view.ViewGroup
 import com.task.toshiba.multichoicesquizapp.Common.Common
 import com.task.toshiba.pekemonapp.Interface.OnItemClick
 import com.task.toshiba.pekemonapp.R
-import java.text.FieldPosition
-import android.content.res.ColorStateList
 
 
 class PokemonTypeAdapter(var context: Context, var typeList: List<String>, var itemClik: OnItemClick) : RecyclerView.Adapter<PokemonTypeAdapter.ViewHolder>() {
@@ -37,7 +33,7 @@ class PokemonTypeAdapter(var context: Context, var typeList: List<String>, var i
         init {
             chip = viewItem.findViewById(R.id.chip) as com.robertlevonyan.views.chip.Chip
             chip.setOnClickListener {
-                itemClik.onClickItem(viewItem, adapterPosition)
+                itemClik.onClickItem(viewItem, adapterPosition, "")
             }
         }
 
