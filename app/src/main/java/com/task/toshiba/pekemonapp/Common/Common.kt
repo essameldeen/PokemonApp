@@ -6,4 +6,5 @@ import java.util.ArrayList
 
 object Common {
     var pokemons: List<PokamnChild>? = ArrayList()
+    val KEY_ENABLE:String="position"
 }

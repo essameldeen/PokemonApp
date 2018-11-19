@@ -1,8 +1,10 @@
 package com.task.toshiba.multichoicesquizapp.Controllers
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.LocalBroadcastManager
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -14,6 +16,7 @@ import com.task.toshiba.multichoicesquizapp.Common.ItemOffestDecoration
 import com.task.toshiba.multichoicesquizapp.Services.Interface.IPokemon
 import com.task.toshiba.multichoicesquizapp.Services.Interface.RetrofitClient
 import com.task.toshiba.pekemonapp.Adapter.PokemonAdapter
+import com.task.toshiba.pekemonapp.Interface.OnItemClick
 import com.task.toshiba.pekemonapp.R
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -21,7 +24,8 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 
 
-class FragmentPokemonList : Fragment() {
+class FragmentPokemonList : Fragment(), OnItemClick {
+
     internal var compositeDisposable = CompositeDisposable()
     internal lateinit var recyclerView: RecyclerView
     internal var iPokemon: IPokemon
@@ -61,7 +65,7 @@ class FragmentPokemonList : Fragment() {
     private fun setUpAdapter() {
         hideProgress()
         if (Common.pokemons != null) {
-            var pokemonAdapter = PokemonAdapter(activity!!, Common.pokemons!!)
+            var pokemonAdapter = PokemonAdapter(activity!!, Common.pokemons!!, this)
             recyclerView.adapter = pokemonAdapter
         } else {
             Toast.makeText(activity, "No Data ", Toast.LENGTH_LONG).show()
@@ -76,4 +80,10 @@ class FragmentPokemonList : Fragment() {
     private fun showProgress() {
         progress.visibility = View.VISIBLE
     }
+
+    override fun onClickItem(view: View, position: Int) {
+        LocalBroadcastManager.getInstance(context!!).sendBroadcast(Intent(Common.KEY_ENABLE).putExtra("position", position))
+
+    }
+
 }
