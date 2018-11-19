@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         //Register BroadCast
         LocalBroadcastManager.getInstance(this).registerReceiver(pokemonDetails, IntentFilter(Common.KEY_ENABLE))
-
+        LocalBroadcastManager.getInstance(this).registerReceiver(showEvolution, IntentFilter(Common.KEY_EVOLUTION))
     }
 
     //create broadCast Handler
@@ -39,6 +39,29 @@ class MainActivity : AppCompatActivity() {
                 pokemonDetails.arguments = bundle
                 changeTitle(Common!!.pokemons!![position]!!.name)
                 replaceFragment(pokemonDetails, PokemonDetails.tag)
+
+            }
+
+
+        }
+
+    }
+    private val showEvolution = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent!!.action!!.toString() == Common.KEY_EVOLUTION) {
+                val num = intent.getStringExtra("num")
+                var bundle = Bundle()
+                bundle.putString("num", num)
+                val pokemonDetails = PokemonDetails.getInstance()
+                pokemonDetails.arguments = bundle
+
+                val fragmentTransaction = supportFragmentManager.beginTransaction()
+                fragmentTransaction.remove(pokemonDetails)
+                fragmentTransaction.replace(R.id.list_pokemon_fragment, pokemonDetails)
+                fragmentTransaction.addToBackStack(PokemonDetails.tag).commit()
+
+                var pokemon = Common.findPokemonByNum(num)
+                changeTitle(pokemon!!.name)
 
             }
 
